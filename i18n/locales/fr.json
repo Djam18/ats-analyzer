@@ -1,0 +1,332 @@
+{
+  "nav": {
+    "dashboard": "Tableau de bord",
+    "newAnalysis": "Nouvelle analyse",
+    "myCvs": "Mes CV",
+    "history": "Historique",
+    "pricing": "Tarifs",
+    "settings": "Paramètres",
+    "admin": "Admin"
+  },
+  "auth": {
+    "login": "Connexion",
+    "register": "Créer un compte",
+    "logout": "Se déconnecter",
+    "email": "Email",
+    "password": "Mot de passe",
+    "fullName": "Nom complet",
+    "forgotPassword": "Mot de passe oublié ?",
+    "noAccount": "Pas encore de compte ?",
+    "alreadyAccount": "Déjà un compte ?",
+    "continueWithGoogle": "Continuer avec Google",
+    "registerWithGoogle": "S'inscrire avec Google",
+    "emailPlaceholder": "vous{'@'}exemple.com",
+    "namePlaceholder": "Jean Dupont",
+    "passwordHint": "Min. 8 caractères, 1 majuscule, 1 chiffre",
+    "createAccount": "Créer mon compte",
+    "signIn": "Se connecter",
+    "checkEmail": "Vérifiez votre email",
+    "confirmationSent": "Un lien de confirmation vous a été envoyé.",
+    "errors": {
+      "nameRequired": "Le nom est requis",
+      "emailRequired": "L'email est requis",
+      "emailInvalid": "Email invalide",
+      "passwordRequired": "Le mot de passe est requis",
+      "passwordMinLength": "Minimum 8 caractères",
+      "passwordUppercase": "Au moins une majuscule requise",
+      "passwordDigit": "Au moins un chiffre requis"
+    },
+    "terms": "En vous inscrivant, vous acceptez nos",
+    "termsLink": "conditions d'utilisation"
+  },
+  "onboarding": {
+    "skip": "Passer l'introduction",
+    "steps": {
+      "discovery": "Découverte",
+      "cv": "Votre CV",
+      "offer": "L'offre",
+      "analysis": "Analyse"
+    },
+    "referral": {
+      "title": "Comment avez-vous connu ATS Analyzer ?",
+      "subtitle": "Aide-nous à comprendre comment vous avez découvert l'app.",
+      "optional": "(Optionnel)",
+      "continue": "Continuer",
+      "sources": {
+        "word_of_mouth": "Bouche à oreille",
+        "linkedin": "LinkedIn",
+        "google": "Google",
+        "youtube_blog": "YouTube / Blog",
+        "twitter": "X / Twitter",
+        "other": "Autre"
+      },
+      "language": "Votre langue",
+      "languageHint": "Vous pourrez la changer à tout moment."
+    },
+    "upload": {
+      "title": "Importez votre CV",
+      "subtitle": "Glissez-déposez votre CV en PDF ou DOCX",
+      "constraints": "Max 5 Mo · 10 pages maximum"
+    },
+    "jobDescription": {
+      "title": "L'offre d'emploi",
+      "subtitle": "Collez la description du poste que vous visez"
+    },
+    "launch": {
+      "title": "Prêt pour votre première analyse ?",
+      "subtitle": "Lancez l'analyse et obtenez votre score ATS en moins de 30 secondes.",
+      "cta": "Lancer l'analyse"
+    }
+  },
+  "dashboard": {
+    "greeting": {
+      "morning": "Bonjour",
+      "afternoon": "Bon après-midi",
+      "evening": "Bonsoir"
+    },
+    "subtitle": "Analysez votre CV pour maximiser vos chances de passer les filtres ATS.",
+    "cta": {
+      "title": "Prêt pour votre prochaine candidature ?",
+      "subtitle": "Analysez la compatibilité de votre CV avec une offre d'emploi",
+      "button": "Analyser maintenant"
+    },
+    "quickLinks": {
+      "cvs": "Mes CV",
+      "manageCvs": "Gérer mes CV",
+      "history": "Historique",
+      "viewAll": "Voir tout"
+    }
+  },
+  "analysis": {
+    "new": {
+      "title": "Nouvelle analyse",
+      "selectCv": "Sélectionner un CV",
+      "jobTitle": "Intitulé du poste",
+      "company": "Entreprise (optionnel)",
+      "jobDescription": "Description du poste",
+      "jobDescriptionHint": "Collez ici la description complète de l'offre",
+      "submit": "Lancer l'analyse",
+      "quotaWarning": "Il ne vous reste que {n} analyse | Il ne vous reste que {n} analyses",
+      "quotaExhausted": "Quota épuisé",
+      "upgrade": "Passer au Pro"
+    },
+    "status": {
+      "pending": "En attente",
+      "processing": "En cours d'analyse...",
+      "completed": "Terminé",
+      "failed": "Échoué"
+    },
+    "score": {
+      "label": "Score ATS",
+      "excellent": "Excellent",
+      "average": "Moyen",
+      "low": "Faible"
+    },
+    "sections": {
+      "matchedKeywords": "Mots-clés présents",
+      "missingKeywords": "Mots-clés manquants",
+      "sectionsAnalysis": "Analyse par section",
+      "suggestions": "Suggestions de reformulation",
+      "seniorityMatch": "Correspondance de séniorité",
+      "experience": "Expérience",
+      "skills": "Compétences",
+      "education": "Formation",
+      "formatting": "Format"
+    },
+    "importance": {
+      "high": "Critique",
+      "medium": "Important",
+      "low": "Mineur"
+    },
+    "seniority": {
+      "cvLevel": "Votre niveau",
+      "jobLevel": "Niveau requis",
+      "match": "Correspondance",
+      "yes": "Oui",
+      "no": "Non"
+    },
+    "suggestions": {
+      "before": "Avant",
+      "after": "Après",
+      "copy": "Copier"
+    },
+    "empty": {
+      "title": "Aucune analyse",
+      "subtitle": "Lancez votre première analyse pour voir vos résultats ici.",
+      "cta": "Nouvelle analyse"
+    }
+  },
+  "cv": {
+    "upload": {
+      "title": "Ajouter un CV",
+      "dragDrop": "Glissez-déposez votre CV ici",
+      "or": "ou",
+      "browse": "Parcourir",
+      "constraints": "PDF ou DOCX · Max 5 Mo · 10 pages",
+      "uploading": "Importation en cours..."
+    },
+    "card": {
+      "pages": "{n} page | {n} pages",
+      "scanned": "CV scanné — le texte peut être limité",
+      "rename": "Renommer",
+      "delete": "Supprimer"
+    },
+    "empty": {
+      "title": "Aucun CV importé",
+      "subtitle": "Importez votre premier CV pour commencer une analyse.",
+      "cta": "Importer un CV"
+    },
+    "deleteConfirm": {
+      "title": "Supprimer ce CV ?",
+      "message": "Cette action est irréversible. Les analyses associées seront conservées.",
+      "confirm": "Supprimer",
+      "cancel": "Annuler"
+    }
+  },
+  "quota": {
+    "free": "{remaining} / 3 gratuites",
+    "pro": "{remaining} / 50 ce mois",
+    "expert": "Illimité",
+    "exhausted": "Quota épuisé",
+    "upgrade": "Passer au Pro",
+    "plan": {
+      "free": "Gratuit",
+      "pro": "Pro",
+      "expert": "Expert"
+    }
+  },
+  "pricing": {
+    "title": "Tarifs simples et transparents",
+    "subtitle": "Commencez gratuitement. Passez au Pro quand vous en avez besoin.",
+    "monthly": "par mois",
+    "lifetime": "à vie",
+    "popular": "Populaire",
+    "currentPlan": "Plan actuel",
+    "cta": {
+      "free": "Commencer",
+      "pro": "Essayer Pro",
+      "expert": "Choisir Expert"
+    },
+    "features": {
+      "analyses3": "3 analyses à vie",
+      "analyses50": "50 analyses / mois",
+      "analysesUnlimited": "Analyses illimitées",
+      "fullAnalysis": "Analyse complète",
+      "basicSuggestions": "Suggestions basiques",
+      "unlimitedHistory": "Historique illimité",
+      "emailSupport": "Support email",
+      "prioritySupport": "Support prioritaire",
+      "scoreAndKeywords": "Score + mots-clés"
+    }
+  },
+  "settings": {
+    "title": "Paramètres",
+    "profile": {
+      "title": "Profil",
+      "fullName": "Nom complet",
+      "save": "Enregistrer"
+    },
+    "billing": {
+      "title": "Facturation",
+      "subtitle": "Gérez votre abonnement et vos paiements",
+      "currentPlan": "Plan actuel",
+      "manage": "Gérer l'abonnement",
+      "manageHint": "Annulation, changement de plan, factures",
+      "cancel": "Annuler mon abonnement",
+      "cancelNote": "Vous pouvez annuler à tout moment depuis le portail de facturation.",
+      "status": {
+        "active": "Actif",
+        "past_due": "Paiement en retard",
+        "canceled": "Annulé"
+      }
+    },
+    "danger": {
+      "title": "Zone de danger",
+      "deleteAccount": "Supprimer mon compte",
+      "deleteConfirm": "Tapez SUPPRIMER pour confirmer",
+      "deleteWord": "SUPPRIMER"
+    }
+  },
+  "landing": {
+    "badge": "3 analyses gratuites sans carte bancaire",
+    "hero": {
+      "title": "Votre CV passe-t-il",
+      "titleHighlight": "le filtre ATS ?",
+      "subtitle": "Analysez la compatibilité de votre CV avec les offres d'emploi en quelques secondes. Obtenez un score, des mots-clés manquants et des suggestions concrètes.",
+      "cta": "Analyser mon CV maintenant",
+      "howItWorks": "Voir comment ça marche"
+    },
+    "stats": {
+      "score": "Score de compatibilité précis",
+      "time": "Temps d'analyse moyen",
+      "free": "Analyses gratuites à vie"
+    },
+    "howItWorks": {
+      "title": "Simple comme bonjour",
+      "subtitle": "Trois étapes pour savoir si votre candidature a une chance de passer les filtres automatiques.",
+      "step1": { "label": "Étape 1", "title": "Importez votre CV", "desc": "Glissez-déposez votre CV en PDF ou DOCX. Max 5 Mo, 10 pages." },
+      "step2": { "label": "Étape 2", "title": "Collez l'offre d'emploi", "desc": "Copiez la description du poste que vous visez." },
+      "step3": { "label": "Étape 3", "title": "Recevez votre rapport", "desc": "Score global, mots-clés manquants, analyse par section et suggestions." }
+    },
+    "features": {
+      "title": "Tout ce dont vous avez besoin",
+      "subtitle": "Une analyse complète pour maximiser vos chances d'obtenir un entretien.",
+      "score": { "title": "Score de compatibilité", "desc": "Un score de 0 à 100 qui reflète précisément votre adéquation avec le poste." },
+      "keywords": { "title": "Mots-clés manquants", "desc": "Identifiez les termes essentiels absents de votre CV, classés par importance." },
+      "sections": { "title": "Analyse par section", "desc": "Scores détaillés pour l'expérience, les compétences, la formation et le format." },
+      "suggestions": { "title": "Suggestions de reformulation", "desc": "Des phrases avant/après concrètes pour améliorer votre CV immédiatement." },
+      "seniority": { "title": "Correspondance de séniorité", "desc": "Vérifiez si votre niveau d'expérience correspond au poste visé." },
+      "history": { "title": "Historique des analyses", "desc": "Retrouvez et comparez toutes vos analyses précédentes en un clic." }
+    },
+    "finalCta": {
+      "title": "Prêt à décrocher plus d'entretiens ?",
+      "subtitle": "Rejoignez les candidats qui optimisent leur CV avec ATS Analyzer.",
+      "button": "Analyser mon CV maintenant"
+    },
+    "footer": {
+      "rights": "Tous droits réservés."
+    }
+  },
+  "common": {
+    "loading": "Chargement...",
+    "error": "Une erreur est survenue",
+    "retry": "Réessayer",
+    "save": "Enregistrer",
+    "cancel": "Annuler",
+    "delete": "Supprimer",
+    "confirm": "Confirmer",
+    "back": "Retour",
+    "next": "Suivant",
+    "or": "ou"
+  },
+  "admin": {
+    "title": "Stats Admin",
+    "subtitle": "Vue d'ensemble de l'acquisition et de la croissance",
+    "refresh": "Actualiser",
+    "kpi": {
+      "totalUsers": "Utilisateurs total",
+      "newWeek": "Nouveaux (7 jours)",
+      "conversion": "Taux de conversion",
+      "totalAnalyses": "Analyses effectuées"
+    },
+    "referral": {
+      "title": "Sources d'acquisition",
+      "empty": "Aucune donnée encore",
+      "sources": {
+        "word_of_mouth": "Bouche à oreille",
+        "linkedin": "LinkedIn",
+        "google": "Google",
+        "youtube_blog": "YouTube / Blog",
+        "twitter": "X / Twitter",
+        "other": "Autre",
+        "unknown": "Non renseigné"
+      }
+    },
+    "plans": {
+      "title": "Répartition des plans",
+      "empty": "Aucune donnée encore",
+      "paidUsers": "Utilisateurs payants",
+      "newMonth": "Nouveaux ce mois"
+    }
+  }
+}
