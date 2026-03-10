@@ -1072,3 +1072,23 @@ API simple, SDK Python natif, templates React Email, excellent deliverability. F
 ---
 
 *ATS Project · Dossier de cadrage v1.0*
+
+---
+
+## 14. Points à clarifier et risques identifiés
+
+| Risque | Niveau | Détail |
+|---|---|---|
+| Qualité du parsing IA | HAUT | GPT-4o mini peut rater des CVs mal structurés (images, colonnes, caractères spéciaux). Aucune stratégie de fallback mentionnée. |
+| Recalcul des scores | MOYEN | US Admin : "recalcule tous les scores existants" — aucune mention de la volumétrie limite ni du mode de déclenchement (sync/async). |
+| Lien Calendly/Google Cal | MOYEN | L'intégration est mentionnée mais non détaillée. OAuth Google Calendar est non trivial à implémenter. |
+| Sécurité des CVs | MOYEN | CVs stockés sur Supabase Storage — pas de mention de contrôle d'accès (URLs signées, expiration) ni de conformité RGPD. |
+| Multi-tenant | MOYEN | Le document ne mentionne pas l'isolation des données entre entreprises clientes. S'il y a plusieurs entreprises sur la plateforme, c'est critique. |
+| Page publique mobile | BAS | Seule la page candidat est prévue en 375px. Acceptable pour un MVP, mais à noter. |
+
+### Ce qui manque pour démarrer le développement
+
+1. **Modèle de données** — pas de schéma ERD. Tables `jobs`, `candidates`, `applications`, `pipeline_stages`, `users`, `email_templates` à définir.
+2. **Contrat API** — aucune liste des endpoints REST. Nécessaire avant d'aligner frontend/backend.
+3. **Stratégie multi-tenant** — est-ce un SaaS multi-entreprises ou un outil monoclient ? Ça change l'architecture.
+4. **RGPD** — données personnelles de candidats (email, CV, téléphone) = obligation légale de mentionner : durée de rétention, droit à l'oubli, consentement.
