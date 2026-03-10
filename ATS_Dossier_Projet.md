@@ -929,32 +929,36 @@ Simple à développer et déployer en phase MVP. Chaque module reste découplé 
 
 ### Stack technique
 
-| Couche | Outil choisi | Justification | Alternatives |
+Contrainte : **100% gratuit, sans carte bancaire requise.**
+
+| Couche | Outil choisi | Gratuit | Justification |
 |---|---|---|---|
-| Frontend | Nuxt 3 + TypeScript | SSR, file-based routing, excellent DX Vue | Next.js, SvelteKit |
-| UI | Tailwind CSS + shadcn-vue | Composants accessibles, rapide | PrimeVue, Vuetify |
-| Backend | FastAPI (Python) | Async natif, parfait pour IA | Node.js + Express |
-| ORM | SQLAlchemy + Alembic | Migrations propres, typage fort | Prisma (JS) |
-| Base de données | PostgreSQL | Robuste, JSON natif, full-text | MySQL |
-| Stockage fichiers | Supabase Storage | S3-compatible, simple à intégrer | AWS S3, MinIO |
-| File queue | Redis + Celery | Traitement async des CVs | BullMQ (Node) |
-| IA / Parsing | OpenAI GPT-4o mini | Extraction précise, coût réduit | Mistral, Ollama |
-| Auth | Supabase Auth (JWT) | OAuth2, gestion sessions clé en main | Auth0, Clerk |
+| Frontend | Nuxt 3 + TypeScript | Oui (open source) | SSR, file-based routing, excellent DX Vue |
+| UI | Tailwind CSS + shadcn-vue | Oui (open source) | Composants accessibles, rapide |
+| Backend | FastAPI (Python) | Oui (open source) | Async natif, parfait pour IA |
+| ORM | SQLAlchemy + Alembic | Oui (open source) | Migrations propres, typage fort |
+| Base de données | PostgreSQL | Oui (open source) | Robuste, JSON natif, full-text |
+| Stockage fichiers | MinIO (self-hosted) | Oui (open source) | S3-compatible, tourne dans Docker |
+| File queue | Redis + Celery | Oui (open source) | Traitement async des CVs |
+| IA / Parsing | Ollama + Mistral 7B | Oui (local) | Modèle open source, tourne en local, zéro coût |
+| Auth | JWT maison (PyJWT) | Oui (open source) | Tokens JWT signés, pas de service externe |
 
 ---
 
 ## 9. Outils de travail
 
-| Catégorie | Outil | Usage |
-|---|---|---|
-| Éditeur | VS Code | Développement principal |
-| Extensions | Pylance, ESLint, Prettier, GitLens | Qualité de code |
-| Versioning | GitHub | Branches, PR, code review |
-| Gestion projet | Linear | Issues, sprints |
-| Documentation | Notion | Specs, runbooks |
-| API Testing | Postman | Tests manuels des routes |
-| DB GUI | TablePlus | Explorer PostgreSQL |
-| Diagrammes | Excalidraw | Schémas d'archi rapides |
+Tous les outils sont **gratuits et sans carte bancaire**.
+
+| Catégorie | Outil | Gratuit | Usage |
+|---|---|---|---|
+| Éditeur | VS Code | Oui | Développement principal |
+| Extensions | Pylance, ESLint, Prettier, GitLens | Oui | Qualité de code |
+| Versioning | GitHub | Oui (free tier) | Branches, PR, code review |
+| Gestion projet | GitHub Issues + GitHub Projects | Oui | Issues, sprints — déjà dans la stack |
+| Documentation | Markdown dans le repo (`/docs`) | Oui | Specs, runbooks, pas de service externe |
+| API Testing | Bruno | Oui (open source) | Tests manuels des routes, collections versionnées en git |
+| DB GUI | DBeaver Community | Oui (open source) | Explorer PostgreSQL |
+| Diagrammes | Excalidraw | Oui (open source, self-hosted ou web) | Schémas d'archi rapides |
 
 ---
 
@@ -991,15 +995,20 @@ Simple à développer et déployer en phase MVP. Chaque module reste découplé 
 
 ## 11. Outils de déploiement
 
-| Composant | Outil | Rôle |
-|---|---|---|
-| Conteneurisation | Docker + Docker Compose | Environnement reproductible |
-| CI/CD | GitHub Actions | Test → Build → Deploy automatique |
-| Frontend | Vercel | Deploy Nuxt 3, CDN, preview par PR |
-| Backend | Railway | FastAPI + Celery Worker |
-| Base de données | Supabase | PostgreSQL managé + Auth + Storage |
-| Secrets | GitHub Secrets | Variables d'environnement sécurisées |
-| Monitoring erreurs | Sentry | Erreurs runtime frontend + backend |
+Tous les outils sont **gratuits et sans carte bancaire**.
+
+| Composant | Outil | Gratuit | Rôle |
+|---|---|---|---|
+| Conteneurisation | Docker + Docker Compose | Oui (open source) | Environnement reproductible local + prod |
+| CI/CD | GitHub Actions | Oui (2 000 min/mois) | Test → Build → Deploy automatique |
+| Frontend | Cloudflare Pages | Oui (sans carte) | Deploy Nuxt 3, CDN global, preview par PR |
+| Backend | Render free tier | Oui (sans carte) | FastAPI + Celery Worker |
+| Base de données | PostgreSQL dans Docker (VPS) ou Render PostgreSQL | Oui | PostgreSQL managé, 1 Go gratuit sur Render |
+| Stockage fichiers | MinIO dans Docker | Oui (open source) | Stockage CVs S3-compatible |
+| Secrets | GitHub Secrets | Oui | Variables d'environnement sécurisées |
+| Monitoring erreurs | Sentry | Oui (free tier, sans carte) | Erreurs runtime frontend + backend |
+
+> **Note Render** : le free tier met le service en veille après 15 min d'inactivité (cold start ~30s). Acceptable pour un MVP. Pour éviter ça, un cron ping toutes les 10 min suffit.
 
 ### Pipeline CI/CD
 
@@ -1014,7 +1023,7 @@ Simple à développer et déployer en phase MVP. Chaque module reste découplé 
                                 │
                ┌────────────────┴──────────────┐
                ▼                               ▼
-           [Vercel]                        [Railway]
+       [Cloudflare Pages]                  [Render]
            Frontend                    Backend + Worker
 ```
 
@@ -1024,13 +1033,15 @@ Durée estimée par pipeline : **4 à 6 minutes**.
 
 ## 12. Analytics
 
-| Type | Outil | Usage |
-|---|---|---|
-| Product analytics | PostHog | Funnels, events, session replay |
-| Error tracking | Sentry | Erreurs runtime, alertes |
-| Logs | Logtail | Logs structurés API et workers |
-| Uptime | Better Uptime | Monitoring disponibilité |
-| Performance web | Vercel Analytics | Core Web Vitals |
+Tous les outils sont **gratuits et sans carte bancaire**.
+
+| Type | Outil | Gratuit | Usage |
+|---|---|---|---|
+| Product analytics | PostHog Cloud | Oui (1 M events/mois, sans carte) | Funnels, events, session replay |
+| Error tracking | Sentry | Oui (5 000 erreurs/mois, sans carte) | Erreurs runtime frontend + backend |
+| Logs | Logs fichiers + Loguru (Python) | Oui (open source) | Logs structurés API et workers, pas de service externe |
+| Uptime | UptimeRobot | Oui (50 moniteurs, sans carte) | Monitoring disponibilité toutes les 5 min |
+| Performance web | Cloudflare Pages Analytics | Oui (inclus avec Pages) | Core Web Vitals, remplace Vercel Analytics |
 
 ### KPIs à tracker dès le lancement
 
@@ -1045,18 +1056,18 @@ Durée estimée par pipeline : **4 à 6 minutes**.
 
 ## 13. Mailing
 
-**Outil recommandé : Resend**
+**Outil recommandé : Brevo (ex-Sendinblue)**
 
-API simple, SDK Python natif, templates React Email, excellent deliverability. Free tier : 3 000 emails/mois.
+300 emails/jour gratuits, sans carte bancaire, SDK Python natif, webhooks inclus.
 
-| Critère | Resend | SendGrid | Brevo |
+| Critère | Brevo | Resend | SendGrid |
 |---|---|---|---|
-| DX (Developer Experience) | ⭐⭐⭐⭐⭐ | ⭐⭐⭐ | ⭐⭐⭐ |
+| Carte bancaire requise | Non | Non | Non |
+| Free tier | 300/jour (9 000/mois) | 3 000/mois | 100/jour |
 | SDK Python | Oui | Oui | Oui |
-| Free tier | 3 000/mois | 100/jour | 300/jour |
-| Prix Pro | 20$/mois | 19.95$/mois | 25$/mois |
-| Deliverability | Excellent | Excellent | Bon |
 | Webhooks | Oui | Oui | Oui |
+| Deliverability | Bon | Excellent | Excellent |
+| SMTP simple | Oui | Oui | Oui |
 
 ### Emails à automatiser
 
@@ -1077,6 +1088,8 @@ API simple, SDK Python natif, templates React Email, excellent deliverability. F
 
 ## 14. Points à clarifier et risques identifiés
 
+Synthèse rapide avant développement détaillé :
+
 | Risque | Niveau | Détail |
 |---|---|---|
 | Qualité du parsing IA | HAUT | GPT-4o mini peut rater des CVs mal structurés (images, colonnes, caractères spéciaux). Aucune stratégie de fallback mentionnée. |
@@ -1086,9 +1099,503 @@ API simple, SDK Python natif, templates React Email, excellent deliverability. F
 | Multi-tenant | MOYEN | Le document ne mentionne pas l'isolation des données entre entreprises clientes. S'il y a plusieurs entreprises sur la plateforme, c'est critique. |
 | Page publique mobile | BAS | Seule la page candidat est prévue en 375px. Acceptable pour un MVP, mais à noter. |
 
-### Ce qui manque pour démarrer le développement
+---
 
-1. **Modèle de données** — pas de schéma ERD. Tables `jobs`, `candidates`, `applications`, `pipeline_stages`, `users`, `email_templates` à définir.
-2. **Contrat API** — aucune liste des endpoints REST. Nécessaire avant d'aligner frontend/backend.
-3. **Stratégie multi-tenant** — est-ce un SaaS multi-entreprises ou un outil monoclient ? Ça change l'architecture.
-4. **RGPD** — données personnelles de candidats (email, CV, téléphone) = obligation légale de mentionner : durée de rétention, droit à l'oubli, consentement.
+### 14.1 Qualité du parsing IA — HAUT
+
+**Problème**
+
+GPT-4o mini est un modèle de langage : il lit du texte. Or une part significative des CVs reçus en pratique ne sont pas du texte pur :
+
+- CVs en colonnes multiples (le PDF est encodé dans un ordre de lecture linéaire qui mélange les colonnes)
+- CVs scannés ou photographiés (fichier PDF sans couche texte, juste une image)
+- CVs en DOCX avec tableaux imbriqués, zones de texte flottantes ou headers/footers
+- CVs avec caractères Unicode non standards (alphabets cyrilliques, arabes, caractères accentués mal encodés)
+- CVs au format image dans un DOCX (logo, photo, graphiques de compétences visuels)
+
+Dans tous ces cas, le texte extrait avant l'envoi à l'API sera corrompu ou incomplet, et GPT-4o mini extraira des données erronées ou partielles sans le signaler explicitement.
+
+**Stratégie de fallback recommandée**
+
+```
+[Fichier uploadé]
+       │
+       ▼
+[Extraction texte]
+       │
+       ├── PDF → pdfplumber (extraction texte natif)
+       │              │
+       │              ├── Texte extrait > 100 mots → OK, envoyer à GPT
+       │              │
+       │              └── Texte < 100 mots ou vide → fallback OCR (pytesseract / AWS Textract)
+       │
+       └── DOCX → python-docx
+                      │
+                      ├── Texte extrait > 100 mots → OK, envoyer à GPT
+                      │
+                      └── Texte < 100 mots → fallback OCR
+                                    │
+                                    ▼
+                            [OCR échoue aussi]
+                                    │
+                                    └── Marquer le CV "parsing manuel requis"
+                                        Notifier le recruteur
+```
+
+**Score de confiance**
+
+Le parser doit retourner un champ `parsing_confidence` (0–1) calculé sur :
+- Nombre de champs extraits / nombre de champs attendus
+- Présence d'un email valide (signal fort de parsing correct)
+- Longueur du texte source
+
+Si `parsing_confidence < 0.6` : afficher une alerte dans l'UI et désactiver le score automatique.
+
+**Prompt engineering**
+
+Le prompt envoyé à GPT doit être strict sur le format de sortie :
+
+```python
+SYSTEM_PROMPT = """
+Tu es un parser de CV. Extrais les informations suivantes du texte fourni.
+Réponds UNIQUEMENT en JSON valide avec exactement ces clés.
+Si une information est absente, utilise null.
+Ne génère rien en dehors du JSON.
+
+{
+  "full_name": string | null,
+  "email": string | null,
+  "phone": string | null,
+  "location": string | null,
+  "skills": string[],
+  "experience_years": number | null,
+  "experiences": [{"title": string, "company": string, "duration_months": number}],
+  "education": [{"degree": string, "institution": string, "year": number | null}],
+  "languages": [{"language": string, "level": string | null}]
+}
+"""
+```
+
+Utiliser `response_format={"type": "json_object"}` dans l'appel API pour forcer la sortie JSON.
+
+**Métriques à surveiller (PostHog/Logtail)**
+
+- `parsing_confidence` moyen par semaine
+- Taux de CVs flaggés "parsing manuel requis" (cible < 5%)
+- Taux d'erreur d'appel OpenAI (cible < 1%)
+
+---
+
+### 14.2 Recalcul des scores — MOYEN
+
+**Problème**
+
+L'user story Admin stipule que modifier les pondérations globales "recalcule tous les scores existants". Deux questions non résolues :
+
+1. **Volumétrie** : si la plateforme a 10 000 candidats, recalculer en synchrone bloque la requête HTTP et timeout.
+2. **Traçabilité** : écraser le score existant efface l'historique. Un recruteur qui avait présélectionné un candidat à 78 peut se retrouver avec un score recalculé à 52 sans comprendre pourquoi.
+
+**Décision recommandée**
+
+Toujours recalculer de manière **asynchrone via Celery**, avec versioning des scores.
+
+```
+Schéma de table scores (à la place d'un champ score sur candidates) :
+
+scores
+├── id
+├── candidate_id
+├── job_id
+├── score_total         (0–100)
+├── score_skills        (0–100)
+├── score_experience    (0–100)
+├── score_education     (0–100)
+├── score_languages     (0–100)
+├── weights_snapshot    (JSONB — copie des pondérations au moment du calcul)
+├── triggered_by        (enum : "upload" | "weights_update" | "manual")
+├── created_at
+```
+
+Ainsi le score affiché est toujours le dernier enregistrement, mais l'historique est conservé.
+
+**Flow de recalcul en masse**
+
+```
+[Admin modifie les pondérations]
+        │
+        ▼
+[Sauvegarde les nouvelles pondérations en base]
+        │
+        ▼
+[Enqueue task Celery : recalculate_all_scores(new_weights_id)]
+        │
+        ▼
+[Celery worker traite par batch de 100]
+        │
+        ├── Calcule le nouveau score pour chaque candidat
+        ├── Insère une nouvelle ligne dans scores (ne supprime pas l'ancienne)
+        └── Notifie l'Admin via websocket / email quand terminé
+```
+
+**UI**
+
+Afficher dans le profil candidat : "Score calculé le [date] avec pondérations v3". Permettre de voir l'historique des scores.
+
+---
+
+### 14.3 Intégration Calendly / Google Calendar — MOYEN
+
+**Problème**
+
+Le dossier mentionne "Lien de planification d'entretien (Calendly ou Google Calendar)" sans préciser l'implémentation. Ces deux options ont des complexités très différentes.
+
+**Option A — Lien libre (recommandée pour le MVP)**
+
+Le recruteur renseigne n'importe quel lien de planification dans ses paramètres de profil (Cal.com gratuit et open source, lien Google Meet, lien Zoom, ou tout autre outil). L'ATS l'insère dans l'email d'invitation via la variable `{{lien_entretien}}`.
+
+```
+Avantages :
+- Zéro OAuth, zéro webhook à gérer côté ATS
+- Compatible avec n'importe quel outil (Cal.com, Google Meet, etc.)
+- Implémentation : 1 champ user.calendar_link + variable {{lien_entretien}} dans le template
+- Cal.com est 100% gratuit et open source (self-hostable)
+
+Inconvénients :
+- Pas de visibilité dans l'ATS sur les RDVs confirmés
+- Le recruteur doit gérer ses disponibilités dans son propre outil
+```
+
+**Option B — Google Calendar API (MVP+ ou V2)**
+
+Intégration native : l'ATS crée l'événement dans le calendrier du recruteur et envoie l'invitation au candidat.
+
+```
+Flux OAuth requis :
+[Recruteur clique "Connecter Google Calendar"]
+        │
+        ▼
+[Redirect OAuth Google — scopes : calendar.events]
+        │
+        ▼
+[Callback ATS — stocke access_token + refresh_token chiffrés en base]
+        │
+        ▼
+[À chaque invitation] POST /calendar/v3/calendars/primary/events
+  avec attendees: [recruteur, candidat]
+  et conferenceData: {createRequest} pour Google Meet automatique
+```
+
+Complexités à anticiper :
+- Refresh token à gérer (expiration, révocation)
+- Gestion des fuseaux horaires (candidat Cotonou, recruteur Paris)
+- Rate limits Google API (quota par projet)
+
+**Recommandation**
+
+MVP : Option A (Calendly link). V2 : Option B (Google Calendar natif).
+Prévoir dès maintenant le champ `user.calendar_link` générique pour ne pas avoir à migrer.
+
+---
+
+### 14.4 Sécurité des CVs et conformité RGPD — MOYEN
+
+**Problème**
+
+Les CVs contiennent des données personnelles sensibles (identité, adresse, téléphone, parfois photo, situation familiale). Deux dimensions à traiter : sécurité technique et conformité légale.
+
+**Sécurité technique — accès aux fichiers**
+
+Supabase Storage génère par défaut des URLs publiques permanentes. Un lien de CV partagé par erreur reste accessible indéfiniment.
+
+Solution : utiliser des **URLs signées à durée limitée** pour tout accès aux CVs.
+
+```python
+# Mauvais — URL publique permanente
+url = supabase.storage.from_("cvs").get_public_url("jean-mbeki-cv.pdf")
+
+# Correct — URL signée valable 1 heure
+url = supabase.storage.from_("cvs").create_signed_url(
+    path="jean-mbeki-cv.pdf",
+    expires_in=3600  # secondes
+)
+```
+
+Le bucket Supabase doit être configuré en **privé**. Aucun fichier ne doit être accessible sans token signé.
+
+**Nommage des fichiers**
+
+Ne jamais stocker les CVs avec le nom original fourni par le candidat (risque de path traversal, collisions, exposition du nom).
+
+```python
+# Mauvais
+filename = uploaded_file.filename  # "Jean Paul MBEKI CV.pdf"
+
+# Correct
+import uuid
+filename = f"{uuid.uuid4()}.pdf"  # "a3f2c1d4-...pdf"
+path = f"jobs/{job_id}/candidates/{candidate_id}/{filename}"
+```
+
+**Conformité RGPD**
+
+Le RGPD (applicable dès qu'un candidat européen postule) impose :
+
+| Obligation | Implémentation requise |
+|---|---|
+| Information du candidat | Ajouter sur la page publique : "Vos données sont traitées par [Entreprise] dans le cadre de votre candidature. Durée de conservation : 2 ans." |
+| Droit d'accès | Endpoint `GET /api/candidates/{id}/export` — retourne toutes les données en JSON/PDF |
+| Droit à l'effacement | Endpoint `DELETE /api/candidates/{id}` — supprime données en base + fichier Supabase + logs associés |
+| Durée de conservation | Cron job mensuel : archiver ou supprimer les candidatures > 2 ans sans activité |
+| Consentement | Checkbox obligatoire sur la page publique : "J'accepte que mes données soient conservées pour cette candidature" |
+| Responsable de traitement | Mentionner dans les CGU qui est responsable (l'entreprise cliente, pas l'éditeur ATS) |
+
+**Chiffrement**
+
+Les données extraites par l'IA (email, téléphone) stockées en clair en PostgreSQL sont suffisantes pour un MVP, mais prévoir à terme le chiffrement des champs PII avec une clé par organisation.
+
+---
+
+### 14.5 Architecture multi-tenant — DÉCISION PRISE
+
+**Décision : Option C — Row-Level Security PostgreSQL**
+
+SaaS multi-clients. Toutes les organisations partagent la même base de données. L'isolation est assurée par PostgreSQL Row-Level Security (RLS) via un `organization_id` sur chaque ligne.
+
+**Option C — Tenant par colonne (Row-Level Security) — RETENUE**
+
+Toutes les entreprises partagent les mêmes tables. Chaque ligne a un `organization_id`. PostgreSQL Row-Level Security (RLS) garantit qu'une requête ne voit que les lignes de son organisation.
+
+```sql
+-- Politique RLS sur la table candidates
+ALTER TABLE candidates ENABLE ROW LEVEL SECURITY;
+
+CREATE POLICY candidates_isolation ON candidates
+  USING (organization_id = current_setting('app.current_org_id')::uuid);
+```
+
+```python
+# Dans le middleware FastAPI — à exécuter avant chaque requête
+@app.middleware("http")
+async def set_tenant_context(request: Request, call_next):
+    org_id = extract_org_from_jwt(request.headers.get("Authorization"))
+    async with db.begin():
+        await db.execute(
+            text("SET LOCAL app.current_org_id = :org_id"),
+            {"org_id": str(org_id)}
+        )
+    return await call_next(request)
+```
+
+**Schéma de la table organizations**
+
+```
+organizations
+├── id          (UUID, PK)
+├── name        (string)
+├── slug        (string, unique — pour les URLs publiques /apply/acme/dev-react)
+├── logo_url    (string | null)
+├── plan        (enum : free | pro | enterprise)
+├── created_at
+```
+
+Toutes les tables principales (`jobs`, `candidates`, `users`, `email_templates`, `scores`) ont un `organization_id` FK vers `organizations`.
+
+**Impact sur l'URL publique candidat**
+
+Actuellement le dossier mentionne "URL unique par offre". Avec le multi-tenant, l'URL doit inclure l'organisation :
+
+```
+/apply/{organization_slug}/{job_slug}
+ex : /apply/acme-corp/developpeur-react-senior
+```
+
+---
+
+### 14.6 Page publique mobile — BAS
+
+**Problème**
+
+Le document prévoit un design responsive uniquement pour la page de candidature publique (375px). Toutes les pages internes (dashboard, kanban, profil) sont desktop-only (1440px).
+
+**Impact concret**
+
+- Les recruteurs qui consultent des profils depuis leur téléphone (en déplacement, entre deux réunions) auront une expérience dégradée.
+- Le pipeline Kanban est intrinsèquement difficile à rendre responsive (colonnes horizontales, drag & drop).
+
+**Recommandation par écran**
+
+| Écran | Priorité mobile | Approche |
+|---|---|---|
+| Page publique candidature | Obligatoire MVP | Design 375px complet |
+| Dashboard | Souhaitable V2 | Cards empilées, KPIs en grille 2×2 |
+| Liste des candidats | Souhaitable V2 | Vue liste simplifiée, masquer colonnes secondaires |
+| Profil candidat | Souhaitable V2 | Layout colonne unique, score en header |
+| Pipeline Kanban | Complexe — V2+ | Vue liste filtrée par étape plutôt que colonnes |
+| Création d'offre | Non prioritaire | Usage rare en mobilité |
+| Reporting | Non prioritaire | Export PDF/CSV suffit en mobile |
+
+**Pour le MVP**
+
+Ajouter dans le CLAUDE.md du projet une contrainte : les pages internes doivent afficher un message "Interface optimisée pour desktop" en dessous de `md` (768px) plutôt que de casser la mise en page.
+
+```html
+<!-- Composant MobileWarning.vue -->
+<div class="hidden md:hidden bg-warning-100 p-4 text-center text-sm">
+  Cette interface est optimisée pour une utilisation sur desktop.
+</div>
+```
+
+---
+
+### 14.7 Ce qui manque pour démarrer le développement
+
+#### Modèle de données (ERD)
+
+Tables minimales à définir avant le premier sprint :
+
+```
+organizations ──< users
+organizations ──< jobs ──< applications ──< scores
+                           jobs ──< pipeline_stages (ordre configurable)
+applications ──> candidates
+applications ──< pipeline_events (historique des déplacements)
+organizations ──< email_templates
+```
+
+Champs critiques à décider en équipe :
+- `applications.status` : enum en base ou FK vers `pipeline_stages` ?
+- `candidates` : un candidat est-il lié à une organisation ou global ? (impact multi-tenant)
+- `scores` : une ligne par calcul (historique) ou une ligne mise à jour ?
+
+#### Contrat API — Liste complète des endpoints
+
+Légende des accès : **R** = Recruteur · **A** = Admin RH · **P** = Public (sans auth)
+
+```
+── AUTH ────────────────────────────────────────────────────────────────
+  POST   /api/auth/login                   P   Email + password → JWT
+  POST   /api/auth/logout                  R,A Invalide le refresh token
+  POST   /api/auth/refresh                 R,A Renouvelle le JWT via refresh token
+  GET    /api/auth/me                      R,A Profil de l'utilisateur connecté
+  POST   /api/auth/forgot-password         P   Envoie un email de réinitialisation
+  POST   /api/auth/reset-password          P   Réinitialise le mot de passe via token
+
+── ORGANISATIONS ────────────────────────────────────────────────────────
+  GET    /api/organizations/me             A   Infos de l'organisation courante
+  PUT    /api/organizations/me             A   Modifier nom, logo, slug
+
+── UTILISATEURS ─────────────────────────────────────────────────────────
+  GET    /api/users                        A   Liste des membres de l'organisation
+  POST   /api/users/invite                 A   Inviter un membre par email
+  GET    /api/users/{id}                   A   Détail d'un utilisateur
+  PUT    /api/users/{id}                   A   Modifier rôle
+  DELETE /api/users/{id}                   A   Désactiver un compte
+  PUT    /api/users/me                     R,A Modifier son propre profil
+  PUT    /api/users/me/password            R,A Changer son mot de passe
+  PUT    /api/users/me/calendar-link       R,A Enregistrer son lien de planification
+
+── OFFRES D'EMPLOI ──────────────────────────────────────────────────────
+  GET    /api/jobs                         R,A Liste des offres (filtre : statut, date)
+  POST   /api/jobs                         R,A Créer une offre
+  GET    /api/jobs/{id}                    R,A Détail d'une offre
+  PUT    /api/jobs/{id}                    R,A Modifier une offre
+  PATCH  /api/jobs/{id}/status             R,A Changer le statut (brouillon/active/clôturée/archivée)
+  DELETE /api/jobs/{id}                    A   Supprimer une offre
+  GET    /api/jobs/{id}/stats              R,A Statistiques de l'offre (nb candidats, score moyen)
+
+── PAGE PUBLIQUE CANDIDAT ───────────────────────────────────────────────
+  GET    /api/public/jobs/{slug}           P   Détail d'une offre (vue publique, sans critères internes)
+  POST   /api/public/jobs/{slug}/apply     P   Soumettre une candidature + upload CV (multipart/form-data)
+
+── CANDIDATURES ─────────────────────────────────────────────────────────
+  GET    /api/jobs/{job_id}/applications   R,A Liste des candidatures d'une offre
+                                               Filtres query : ?stage=&min_score=&max_score=&search=
+  POST   /api/jobs/{job_id}/applications   R,A Uploader un CV manuellement (multipart/form-data)
+  GET    /api/applications/{id}            R,A Détail d'une candidature
+  DELETE /api/applications/{id}            A   Supprimer une candidature
+
+── PIPELINE ─────────────────────────────────────────────────────────────
+  PATCH  /api/applications/{id}/stage      R,A Déplacer vers une étape (body: {stage_id})
+  GET    /api/applications/{id}/history    R,A Historique des déplacements dans le pipeline
+  POST   /api/applications/{id}/notes      R,A Ajouter une note interne
+  GET    /api/applications/{id}/notes      R,A Lister les notes internes
+  DELETE /api/applications/{id}/notes/{note_id}  R,A Supprimer une note
+
+── CANDIDATS ────────────────────────────────────────────────────────────
+  GET    /api/candidates                   R,A Liste globale (toutes offres)
+                                               Filtres query : ?search=&stage=&job_id=
+  GET    /api/candidates/{id}              R,A Profil complet du candidat
+  GET    /api/candidates/{id}/cv           R,A URL signée pour télécharger le CV original (valable 1h)
+  DELETE /api/candidates/{id}              A   Supprimer le candidat + données + CV (droit à l'effacement RGPD)
+  GET    /api/candidates/{id}/export       R,A Export JSON des données personnelles (droit d'accès RGPD)
+
+── SCORING ──────────────────────────────────────────────────────────────
+  GET    /api/applications/{id}/scores     R,A Historique des scores d'une candidature
+  POST   /api/applications/{id}/scores/recalculate  R,A Recalculer manuellement le score
+  GET    /api/scoring/weights              A   Pondérations globales actuelles
+  PUT    /api/scoring/weights              A   Modifier les pondérations (déclenche recalcul async)
+  GET    /api/scoring/weights/history      A   Historique des versions de pondérations
+
+── ÉTAPES PIPELINE (configuration) ─────────────────────────────────────
+  GET    /api/pipeline/stages              R,A Liste des étapes configurées
+  PUT    /api/pipeline/stages              A   Réordonner ou renommer les étapes
+
+── TEMPLATES EMAIL ──────────────────────────────────────────────────────
+  GET    /api/email-templates              A   Liste des templates
+  POST   /api/email-templates              A   Créer un template
+  GET    /api/email-templates/{id}         A   Détail d'un template
+  PUT    /api/email-templates/{id}         A   Modifier un template
+  DELETE /api/email-templates/{id}         A   Supprimer un template
+  POST   /api/email-templates/{id}/preview A   Aperçu rendu avec variables fictives
+  POST   /api/email-templates/{id}/test    A   Envoyer un email de test à l'Admin
+
+── EMAILS ENVOYÉS ───────────────────────────────────────────────────────
+  GET    /api/applications/{id}/emails     R,A Historique des emails envoyés à ce candidat
+  POST   /api/applications/{id}/emails     R,A Envoyer un email manuel (body: {template_id, variables})
+
+── REPORTING ────────────────────────────────────────────────────────────
+  GET    /api/reports/overview             A   KPIs globaux (nb candidatures, taux conversion, délai moyen)
+                                               Query : ?period=month|quarter|year&job_id=
+  GET    /api/reports/pipeline             A   Taux de conversion par étape
+  GET    /api/reports/sources              A   Répartition des sources de candidatures
+  GET    /api/reports/scores               A   Distribution des scores par offre
+  GET    /api/reports/timeline             A   Évolution temporelle des candidatures
+  GET    /api/reports/export               A   Export CSV de toutes les données
+                                               Query : ?format=csv|json&job_id=&from=&to=
+
+── WORKERS / TÂCHES ASYNC (usage interne, non exposé) ──────────────────
+  POST   /api/internal/parse-cv            Worker  Déclenché par Celery après upload
+  POST   /api/internal/send-email          Worker  Déclenché par Celery après changement d'étape
+  POST   /api/internal/weekly-report       Worker  Déclenché par cron job lundi 8h00
+```
+
+**Récapitulatif par module**
+
+| Module | Endpoints | Accès |
+|---|---|---|
+| Auth | 6 | Public + R + A |
+| Organisations | 2 | A |
+| Utilisateurs | 8 | A + R |
+| Offres | 7 | R + A |
+| Page publique | 2 | Public |
+| Candidatures | 4 | R + A |
+| Pipeline | 5 | R + A |
+| Candidats | 5 | R + A |
+| Scoring | 5 | R + A |
+| Pipeline config | 2 | R + A |
+| Templates email | 7 | A |
+| Emails envoyés | 2 | R + A |
+| Reporting | 6 | A |
+| **Total** | **61** | |
+
+#### Décision architecture multi-tenant
+
+- [x] **SaaS multi-clients — Option C (RLS PostgreSQL) — DÉCIDÉ**
+
+#### Conformité RGPD
+
+À valider avec le DPO ou un juriste si le produit est destiné à traiter des données de candidats européens :
+- [ ] Politique de confidentialité rédigée
+- [ ] Durée de rétention des données définie (recommandation : 2 ans)
+- [ ] Endpoints droit d'accès et droit à l'effacement planifiés dans le backlog
+- [ ] Checkbox de consentement sur la page publique
