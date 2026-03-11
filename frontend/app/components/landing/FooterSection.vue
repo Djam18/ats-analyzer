@@ -6,18 +6,21 @@
         <div class="md:col-span-1">
           <SharedLogo size="md" variant="light" />
           <p class="mt-3 text-sm text-white/60 leading-relaxed">
-            Recrutement intelligent propulsé par l'IA. Données hébergées en France.
+            {{ $t('footer.tagline') }}
           </p>
-          <p class="mt-4 text-xs text-white/40">RGPD · Made in France</p>
+          <p class="mt-4 text-xs text-white/40">{{ $t('footer.rgpd') }}</p>
         </div>
 
-        <!-- Col 2: Produit -->
+        <!-- Col 2: Product -->
         <div>
-          <h4 class="mb-4 text-sm font-semibold uppercase tracking-wider text-white/50">Produit</h4>
+          <h4 class="mb-4 text-sm font-semibold uppercase tracking-wider text-white/50">{{ $t('footer.col_product') }}</h4>
           <ul class="space-y-2.5">
-            <li v-for="link in productLinks" :key="link.label">
-              <a :href="link.href" class="text-sm text-white/70 hover:text-white transition-colors">
-                {{ link.label }}
+            <li v-for="link in productLinks" :key="link.key">
+              <NuxtLink v-if="link.internal" :to="link.href" class="text-sm text-white/70 hover:text-white transition-colors">
+                {{ $t(link.key) }}
+              </NuxtLink>
+              <a v-else :href="link.href" class="text-sm text-white/70 hover:text-white transition-colors">
+                {{ $t(link.key) }}
               </a>
             </li>
           </ul>
@@ -25,11 +28,11 @@
 
         <!-- Col 3: Ressources -->
         <div>
-          <h4 class="mb-4 text-sm font-semibold uppercase tracking-wider text-white/50">Ressources</h4>
+          <h4 class="mb-4 text-sm font-semibold uppercase tracking-wider text-white/50">{{ $t('footer.col_resources') }}</h4>
           <ul class="space-y-2.5">
-            <li v-for="link in resourceLinks" :key="link.label">
+            <li v-for="link in resourceLinks" :key="link.key">
               <a :href="link.href" class="text-sm text-white/70 hover:text-white transition-colors">
-                {{ link.label }}
+                {{ $t(link.key) }}
               </a>
             </li>
           </ul>
@@ -37,24 +40,23 @@
 
         <!-- Col 4: Contact -->
         <div>
-          <h4 class="mb-4 text-sm font-semibold uppercase tracking-wider text-white/50">Contact</h4>
+          <h4 class="mb-4 text-sm font-semibold uppercase tracking-wider text-white/50">{{ $t('footer.col_contact') }}</h4>
           <ul class="space-y-2.5">
             <li>
               <a href="mailto:bonjour@ats-platform.fr" class="text-sm text-white/70 hover:text-white transition-colors">
                 bonjour@ats-platform.fr
               </a>
             </li>
-            <li class="text-sm text-white/40">Paris, France</li>
           </ul>
         </div>
       </div>
 
       <div class="mt-10 flex flex-col items-center justify-between gap-4 border-t border-white/10 pt-8 md:flex-row">
-        <p class="text-xs text-white/40">© 2025 ATS Platform. Tous droits réservés.</p>
+        <p class="text-xs text-white/40">{{ $t('footer.copyright', { year: new Date().getFullYear() }) }}</p>
         <div class="flex gap-4">
-          <a href="#" class="text-xs text-white/40 hover:text-white/70 transition-colors">Mentions légales</a>
-          <a href="#" class="text-xs text-white/40 hover:text-white/70 transition-colors">Politique de confidentialité</a>
-          <a href="#" class="text-xs text-white/40 hover:text-white/70 transition-colors">CGU</a>
+          <NuxtLink to="/legal/mentions" class="text-xs text-white/40 hover:text-white/70 transition-colors">{{ $t('footer.legal') }}</NuxtLink>
+          <NuxtLink to="/legal/privacy" class="text-xs text-white/40 hover:text-white/70 transition-colors">{{ $t('footer.privacy') }}</NuxtLink>
+          <NuxtLink to="/legal/terms" class="text-xs text-white/40 hover:text-white/70 transition-colors">{{ $t('footer.terms') }}</NuxtLink>
         </div>
       </div>
     </div>
@@ -63,17 +65,14 @@
 
 <script setup lang="ts">
 const productLinks = [
-  { label: 'Fonctionnalités', href: '#features' },
-  { label: 'Tarifs', href: '#pricing' },
-  { label: 'FAQ', href: '#faq' },
-  { label: 'Se connecter', href: '/login' },
-  { label: 'Créer un compte', href: '/register' },
+  { key: 'footer.link_features', href: '#features', internal: false },
+  { key: 'footer.link_pricing', href: '#pricing', internal: false },
+  { key: 'footer.link_faq', href: '#faq', internal: false },
+  { key: 'footer.link_login', href: '/login', internal: true },
+  { key: 'footer.link_register', href: '/register', internal: true },
 ]
 
 const resourceLinks = [
-  { label: 'Documentation', href: '#' },
-  { label: 'API REST', href: '#' },
-  { label: 'Blog', href: '#' },
-  { label: 'Changelog', href: '#' },
+  { key: 'footer.link_docs', href: '/docs' },
 ]
 </script>
