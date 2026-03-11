@@ -4,6 +4,8 @@ export default defineNuxtConfig({
   compatibilityDate: '2025-07-15',
   devtools: { enabled: false },
 
+  modules: ['@nuxtjs/i18n'],
+
   css: ['~/assets/css/main.css'],
   // Nuxt 4: ~ resolves to the app/ directory
 
@@ -11,9 +13,28 @@ export default defineNuxtConfig({
     plugins: [tailwindcss()],
   },
 
+  i18n: {
+    locales: [
+      { code: 'fr', language: 'fr-FR', name: 'Français', file: 'fr.json' },
+      { code: 'en', language: 'en-US', name: 'English', file: 'en.json' },
+      { code: 'zh', language: 'zh-CN', name: '中文', file: 'zh.json' },
+      { code: 'hi', language: 'hi-IN', name: 'हिन्दी', file: 'hi.json' },
+      { code: 'es', language: 'es-ES', name: 'Español', file: 'es.json' },
+    ],
+    defaultLocale: 'fr',
+    strategy: 'no_prefix',
+    lazy: true,
+    langDir: '../i18n/locales',
+    detectBrowserLanguage: {
+      useCookie: true,
+      cookieKey: 'ats-locale',
+      redirectOn: 'root',
+      fallbackLocale: 'fr',
+    },
+  },
+
   app: {
     head: {
-      htmlAttrs: { lang: 'fr' },
       title: 'ATS Platform — Recrutement intelligent avec IA',
       meta: [
         { charset: 'utf-8' },
@@ -35,7 +56,7 @@ export default defineNuxtConfig({
         { rel: 'preconnect', href: 'https://fonts.gstatic.com', crossorigin: '' },
         {
           rel: 'stylesheet',
-          href: 'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;700&display=swap',
+          href: 'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;700&family=Noto+Sans+SC:wght@400;500;700&family=Noto+Sans+Devanagari:wght@400;500;700&display=swap',
         },
       ],
     },
