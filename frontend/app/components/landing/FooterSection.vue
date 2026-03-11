@@ -31,7 +31,10 @@
           <h4 class="mb-4 text-sm font-semibold uppercase tracking-wider text-white/50">{{ $t('footer.col_resources') }}</h4>
           <ul class="space-y-2.5">
             <li v-for="link in resourceLinks" :key="link.key">
-              <a :href="link.href" class="text-sm text-white/70 hover:text-white transition-colors">
+              <NuxtLink v-if="link.internal" :to="link.href" class="text-sm text-white/70 hover:text-white transition-colors">
+                {{ $t(link.key) }}
+              </NuxtLink>
+              <a v-else :href="link.href" class="text-sm text-white/70 hover:text-white transition-colors">
                 {{ $t(link.key) }}
               </a>
             </li>
@@ -73,6 +76,6 @@ const productLinks = [
 ]
 
 const resourceLinks = [
-  { key: 'footer.link_docs', href: '/docs' },
+  { key: 'footer.link_docs', href: '/docs', internal: true },
 ]
 </script>

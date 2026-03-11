@@ -22,6 +22,8 @@
               v-model="form.firstName"
               type="text"
               :placeholder="$t('register.first_name_placeholder')"
+              autocomplete="given-name"
+              required
               class="w-full rounded-md border border-[#E2E8F0] bg-white px-3 py-2.5 text-sm text-[#1A202C] placeholder-[#718096] outline-none focus:border-[#2E86AB] focus:ring-2 focus:ring-[#2E86AB]/20 transition-colors"
             />
           </div>
@@ -34,6 +36,8 @@
               v-model="form.lastName"
               type="text"
               :placeholder="$t('register.last_name_placeholder')"
+              autocomplete="family-name"
+              required
               class="w-full rounded-md border border-[#E2E8F0] bg-white px-3 py-2.5 text-sm text-[#1A202C] placeholder-[#718096] outline-none focus:border-[#2E86AB] focus:ring-2 focus:ring-[#2E86AB]/20 transition-colors"
             />
           </div>
@@ -49,6 +53,8 @@
             v-model="form.email"
             type="email"
             :placeholder="$t('register.email_placeholder')"
+            autocomplete="email"
+            required
             class="w-full rounded-md border border-[#E2E8F0] bg-white px-3 py-2.5 text-sm text-[#1A202C] placeholder-[#718096] outline-none focus:border-[#2E86AB] focus:ring-2 focus:ring-[#2E86AB]/20 transition-colors"
           />
         </div>
@@ -63,6 +69,7 @@
             v-model="form.company"
             type="text"
             :placeholder="$t('register.company_placeholder')"
+            autocomplete="organization"
             class="w-full rounded-md border border-[#E2E8F0] bg-white px-3 py-2.5 text-sm text-[#1A202C] placeholder-[#718096] outline-none focus:border-[#2E86AB] focus:ring-2 focus:ring-[#2E86AB]/20 transition-colors"
           />
         </div>
@@ -77,6 +84,8 @@
             v-model="form.password"
             type="password"
             :placeholder="$t('register.password_placeholder')"
+            autocomplete="new-password"
+            required
             class="w-full rounded-md border border-[#E2E8F0] bg-white px-3 py-2.5 text-sm text-[#1A202C] placeholder-[#718096] outline-none focus:border-[#2E86AB] focus:ring-2 focus:ring-[#2E86AB]/20 transition-colors"
           />
         </div>

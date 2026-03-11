@@ -21,6 +21,8 @@
             v-model="form.email"
             type="email"
             :placeholder="$t('login.email_placeholder')"
+            autocomplete="email"
+            required
             class="w-full rounded-md border border-[#E2E8F0] bg-white px-3 py-2.5 text-sm text-[#1A202C] placeholder-[#718096] outline-none focus:border-[#2E86AB] focus:ring-2 focus:ring-[#2E86AB]/20 transition-colors"
           />
         </div>
@@ -35,6 +37,8 @@
             v-model="form.password"
             type="password"
             placeholder="••••••••"
+            autocomplete="current-password"
+            required
             class="w-full rounded-md border border-[#E2E8F0] bg-white px-3 py-2.5 text-sm text-[#1A202C] placeholder-[#718096] outline-none focus:border-[#2E86AB] focus:ring-2 focus:ring-[#2E86AB]/20 transition-colors"
           />
         </div>
