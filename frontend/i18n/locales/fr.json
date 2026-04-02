@@ -196,7 +196,8 @@
     "no_account": "Pas encore de compte ?",
     "create_account": "Créer un compte",
     "back_home": "← Retour à l'accueil",
-    "page_title": "Connexion — ATS Platform"
+    "page_title": "Connexion — ATS Platform",
+    "submitting": "Connexion..."
   },
   "register": {
     "title": "Créer un compte",
@@ -219,7 +220,8 @@
     "already_account": "Déjà un compte ?",
     "login_link": "Se connecter",
     "back_home": "← Retour à l'accueil",
-    "page_title": "Créer un compte — ATS Platform"
+    "page_title": "Créer un compte — ATS Platform",
+    "submitting": "Création..."
   },
   "meta": {
     "site_title": "ATS Platform — Recrutement intelligent avec IA",
@@ -295,5 +297,32 @@
     "back_login": "← Retour à la connexion",
     "success_title": "Email envoyé !",
     "success_body": "Si cet email existe dans notre système, vous recevrez un lien de réinitialisation dans quelques minutes."
+  },
+  "confirm": {
+    "page_title": "Confirmation — ATS Platform",
+    "loading": "Vérification en cours...",
+    "success_title": "Email confirmé !",
+    "success_body": "Votre compte est activé. Vous pouvez maintenant accéder à votre espace.",
+    "cta": "Accéder au dashboard",
+    "error_title": "Lien invalide",
+    "error_body": "Ce lien de confirmation est expiré ou invalide.",
+    "back_login": "Retour à la connexion"
+  },
+  "reset_password": {
+    "page_title": "Nouveau mot de passe — ATS Platform",
+    "title": "Nouveau mot de passe",
+    "subtitle": "Choisissez un mot de passe sécurisé d'au moins 8 caractères.",
+    "password_label": "Nouveau mot de passe",
+    "password_placeholder": "••••••••",
+    "confirm_label": "Confirmer le mot de passe",
+    "confirm_placeholder": "••••••••",
+    "submit": "Enregistrer le mot de passe",
+    "submitting": "Enregistrement...",
+    "success_title": "Mot de passe mis à jour",
+    "success_body": "Vous pouvez maintenant vous connecter avec votre nouveau mot de passe.",
+    "cta": "Se connecter",
+    "back_login": "Retour à la connexion",
+    "error_mismatch": "Les mots de passe ne correspondent pas.",
+    "error_too_short": "Le mot de passe doit contenir au moins 8 caractères."
   }
 }

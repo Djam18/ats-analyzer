@@ -196,7 +196,8 @@
     "no_account": "¿Aún no tienes cuenta?",
     "create_account": "Crear una cuenta",
     "back_home": "← Volver al inicio",
-    "page_title": "Iniciar sesión — ATS Platform"
+    "page_title": "Iniciar sesión — ATS Platform",
+    "submitting": "Iniciando sesión..."
   },
   "register": {
     "title": "Crear una cuenta",
@@ -219,7 +220,8 @@
     "already_account": "¿Ya tienes cuenta?",
     "login_link": "Iniciar sesión",
     "back_home": "← Volver al inicio",
-    "page_title": "Crear una cuenta — ATS Platform"
+    "page_title": "Crear una cuenta — ATS Platform",
+    "submitting": "Creando..."
   },
   "meta": {
     "site_title": "ATS Platform — Reclutamiento inteligente con IA",
@@ -295,5 +297,32 @@
     "back_login": "← Volver al inicio de sesión",
     "success_title": "¡Email enviado!",
     "success_body": "Si este email existe en nuestro sistema, recibirás un enlace de restablecimiento en unos minutos."
+  },
+  "confirm": {
+    "page_title": "Confirmación — ATS Platform",
+    "loading": "Verificando...",
+    "success_title": "¡Email confirmado!",
+    "success_body": "Tu cuenta está activada. Ya puedes acceder a tu espacio.",
+    "cta": "Ir al dashboard",
+    "error_title": "Enlace inválido",
+    "error_body": "Este enlace de confirmación ha expirado o es inválido.",
+    "back_login": "Volver al inicio de sesión"
+  },
+  "reset_password": {
+    "page_title": "Nueva contraseña — ATS Platform",
+    "title": "Nueva contraseña",
+    "subtitle": "Elige una contraseña segura de al menos 8 caracteres.",
+    "password_label": "Nueva contraseña",
+    "password_placeholder": "••••••••",
+    "confirm_label": "Confirmar contraseña",
+    "confirm_placeholder": "••••••••",
+    "submit": "Guardar contraseña",
+    "submitting": "Guardando...",
+    "success_title": "Contraseña actualizada",
+    "success_body": "Ahora puedes iniciar sesión con tu nueva contraseña.",
+    "cta": "Iniciar sesión",
+    "back_login": "Volver al inicio de sesión",
+    "error_mismatch": "Las contraseñas no coinciden.",
+    "error_too_short": "La contraseña debe tener al menos 8 caracteres."
   }
 }

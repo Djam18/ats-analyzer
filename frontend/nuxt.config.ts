@@ -6,6 +6,19 @@ export default defineNuxtConfig({
 
   modules: ['@nuxtjs/i18n'],
 
+  runtimeConfig: {
+    supabaseServiceKey: process.env.SUPABASE_SERVICE_KEY ?? '',
+    stripeSecretKey: process.env.STRIPE_SECRET_KEY ?? '',
+    stripeWebhookSecret: process.env.STRIPE_WEBHOOK_SECRET ?? '',
+    resendApiKey: process.env.RESEND_API_KEY ?? '',
+    public: {
+      supabaseUrl: process.env.SUPABASE_URL ?? '',
+      supabaseAnonKey: process.env.SUPABASE_KEY ?? '',
+      stripePriceBasic: process.env.STRIPE_PRICE_BASIC ?? '',
+      stripePricePro: process.env.STRIPE_PRICE_PRO ?? '',
+    },
+  },
+
   css: ['~/assets/css/main.css'],
   // Nuxt 4: ~ resolves to the app/ directory
 

@@ -4,5 +4,10 @@
 
 <script setup lang="ts">
 const { init } = useDarkMode()
-onMounted(init)
+const { initSession } = useAuth()
+
+onMounted(async () => {
+  init()
+  await initSession()
+})
 </script>

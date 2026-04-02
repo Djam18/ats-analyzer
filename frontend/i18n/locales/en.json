@@ -196,7 +196,8 @@
     "no_account": "Don't have an account?",
     "create_account": "Create an account",
     "back_home": "← Back to home",
-    "page_title": "Log in — ATS Platform"
+    "page_title": "Log in — ATS Platform",
+    "submitting": "Signing in..."
   },
   "register": {
     "title": "Create an account",
@@ -219,7 +220,8 @@
     "already_account": "Already have an account?",
     "login_link": "Log in",
     "back_home": "← Back to home",
-    "page_title": "Create an account — ATS Platform"
+    "page_title": "Create an account — ATS Platform",
+    "submitting": "Creating..."
   },
   "meta": {
     "site_title": "ATS Platform — Intelligent recruitment with AI",
@@ -295,5 +297,32 @@
     "back_login": "← Back to login",
     "success_title": "Email sent!",
     "success_body": "If this email exists in our system, you will receive a reset link within a few minutes."
+  },
+  "confirm": {
+    "page_title": "Confirmation — ATS Platform",
+    "loading": "Verifying...",
+    "success_title": "Email confirmed!",
+    "success_body": "Your account is activated. You can now access your workspace.",
+    "cta": "Go to dashboard",
+    "error_title": "Invalid link",
+    "error_body": "This confirmation link is expired or invalid.",
+    "back_login": "Back to login"
+  },
+  "reset_password": {
+    "page_title": "New password — ATS Platform",
+    "title": "New password",
+    "subtitle": "Choose a secure password of at least 8 characters.",
+    "password_label": "New password",
+    "password_placeholder": "••••••••",
+    "confirm_label": "Confirm password",
+    "confirm_placeholder": "••••••••",
+    "submit": "Save password",
+    "submitting": "Saving...",
+    "success_title": "Password updated",
+    "success_body": "You can now sign in with your new password.",
+    "cta": "Sign in",
+    "back_login": "Back to login",
+    "error_mismatch": "Passwords do not match.",
+    "error_too_short": "Password must be at least 8 characters."
   }
 }

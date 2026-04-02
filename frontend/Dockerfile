@@ -1,3 +1,15 @@
+# ── Stage 0: Dev (used by docker-compose for local development) ───────────────
+FROM node:20-alpine AS dev
+
+WORKDIR /app
+
+EXPOSE 3000
+
+ENV HOST=0.0.0.0
+ENV PORT=3000
+
+# npm install + nuxt dev are run by docker-compose command at startup
+
 # ── Stage 1: Build ────────────────────────────────────────────────────────────
 FROM node:20-alpine AS builder
 

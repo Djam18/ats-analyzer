@@ -196,7 +196,8 @@
     "no_account": "अभी तक खाता नहीं है?",
     "create_account": "खाता बनाएं",
     "back_home": "← होम पर वापस जाएं",
-    "page_title": "लॉग इन — ATS Platform"
+    "page_title": "लॉग इन — ATS Platform",
+    "submitting": "लॉगिन हो रहा है..."
   },
   "register": {
     "title": "खाता बनाएं",
@@ -219,7 +220,8 @@
     "already_account": "पहले से खाता है?",
     "login_link": "लॉग इन करें",
     "back_home": "← होम पर वापस जाएं",
-    "page_title": "खाता बनाएं — ATS Platform"
+    "page_title": "खाता बनाएं — ATS Platform",
+    "submitting": "बन रहा है..."
   },
   "meta": {
     "site_title": "ATS Platform — AI के साथ बुद्धिमान भर्ती",
@@ -295,5 +297,32 @@
     "back_login": "← लॉगिन पर वापस जाएं",
     "success_title": "ईमेल भेजा गया!",
     "success_body": "यदि यह ईमेल हमारे सिस्टम में मौजूद है, तो आपको कुछ मिनटों में रीसेट लिंक मिलेगा।"
+  },
+  "confirm": {
+    "page_title": "पुष्टि — ATS Platform",
+    "loading": "सत्यापन हो रहा है...",
+    "success_title": "ईमेल की पुष्टि हो गई!",
+    "success_body": "आपका खाता सक्रिय हो गया है। अब आप अपने कार्यक्षेत्र में जा सकते हैं।",
+    "cta": "डैशबोर्ड पर जाएं",
+    "error_title": "अमान्य लिंक",
+    "error_body": "यह पुष्टि लिंक समाप्त हो गया है या अमान्य है।",
+    "back_login": "लॉगिन पर वापस जाएं"
+  },
+  "reset_password": {
+    "page_title": "नया पासवर्ड — ATS Platform",
+    "title": "नया पासवर्ड",
+    "subtitle": "कम से कम 8 अक्षरों का सुरक्षित पासवर्ड चुनें।",
+    "password_label": "नया पासवर्ड",
+    "password_placeholder": "••••••••",
+    "confirm_label": "पासवर्ड की पुष्टि करें",
+    "confirm_placeholder": "••••••••",
+    "submit": "पासवर्ड सहेजें",
+    "submitting": "सहेजा जा रहा है...",
+    "success_title": "पासवर्ड अपडेट किया गया",
+    "success_body": "अब आप अपने नए पासवर्ड से लॉगिन कर सकते हैं।",
+    "cta": "लॉगिन करें",
+    "back_login": "लॉगिन पर वापस जाएं",
+    "error_mismatch": "पासवर्ड मेल नहीं खाते।",
+    "error_too_short": "पासवर्ड कम से कम 8 अक्षरों का होना चाहिए।"
   }
 }

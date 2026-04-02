@@ -38,6 +38,7 @@
 </template>
 
 <script setup lang="ts">
+import { computed, onMounted, onBeforeUnmount, ref } from 'vue'
 const { locale, locales, setLocale } = useI18n()
 const open = ref(false)
 const container = ref<HTMLElement | null>(null)
@@ -47,7 +48,7 @@ const currentLocale = computed(() =>
   (locales.value as Array<{ code: string; name: string }>).find(l => l.code === currentCode.value)
 )
 
-async function switchLocale(code: string) {
+async function switchLocale(code: any) {
   await setLocale(code)
   open.value = false
 }

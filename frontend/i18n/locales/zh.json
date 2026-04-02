@@ -196,7 +196,8 @@
     "no_account": "还没有账户？",
     "create_account": "创建账户",
     "back_home": "← 返回首页",
-    "page_title": "登录 — ATS Platform"
+    "page_title": "登录 — ATS Platform",
+    "submitting": "登录中..."
   },
   "register": {
     "title": "创建账户",
@@ -219,7 +220,8 @@
     "already_account": "已有账户？",
     "login_link": "登录",
     "back_home": "← 返回首页",
-    "page_title": "创建账户 — ATS Platform"
+    "page_title": "创建账户 — ATS Platform",
+    "submitting": "创建中..."
   },
   "meta": {
     "site_title": "ATS Platform — AI智能招聘",
@@ -295,5 +297,32 @@
     "back_login": "← 返回登录",
     "success_title": "邮件已发送！",
     "success_body": "如果此邮箱存在于我们的系统中，您将在几分钟内收到重置链接。"
+  },
+  "confirm": {
+    "page_title": "确认 — ATS Platform",
+    "loading": "验证中...",
+    "success_title": "邮箱已确认！",
+    "success_body": "您的账户已激活，现在可以访问您的工作区。",
+    "cta": "进入控制台",
+    "error_title": "链接无效",
+    "error_body": "此确认链接已过期或无效。",
+    "back_login": "返回登录"
+  },
+  "reset_password": {
+    "page_title": "新密码 — ATS Platform",
+    "title": "设置新密码",
+    "subtitle": "请设置至少8位字符的安全密码。",
+    "password_label": "新密码",
+    "password_placeholder": "••••••••",
+    "confirm_label": "确认密码",
+    "confirm_placeholder": "••••••••",
+    "submit": "保存密码",
+    "submitting": "保存中...",
+    "success_title": "密码已更新",
+    "success_body": "您现在可以使用新密码登录。",
+    "cta": "立即登录",
+    "back_login": "返回登录",
+    "error_mismatch": "两次输入的密码不一致。",
+    "error_too_short": "密码至少需要8个字符。"
   }
 }
