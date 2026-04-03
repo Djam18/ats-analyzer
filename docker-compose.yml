@@ -1,10 +1,11 @@
 services:
+
   postgres:
     image: postgres:15-alpine
     container_name: ats_postgres
     restart: unless-stopped
     ports:
-      - "5432:5432"
+      - "5435:5432"
     environment:
       POSTGRES_DB: ats_dev
       POSTGRES_USER: ats
@@ -22,7 +23,7 @@ services:
     container_name: ats_redis
     restart: unless-stopped
     ports:
-      - "6379:6379"
+      - "6381:6379"
     command: redis-server --save 60 1 --loglevel warning
     volumes:
       - redis_data:/data
@@ -32,31 +33,60 @@ services:
       timeout: 3s
       retries: 5
 
-  # ========== BACKEND & WORKERS ==========
+  minio:
+    image: minio/minio
+    container_name: ats_minio
+    restart: unless-stopped
+    ports:
+      - "9000:9000"
+      - "9001:9001"
+    environment:
+      MINIO_ROOT_USER: minioadmin
+      MINIO_ROOT_PASSWORD: minioadmin
+    command: server /data --console-address ":9001"
+    volumes:
+      - minio_data:/data
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:9000/minio/health/live"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
   backend:
     build:
       context: ./backend
       dockerfile: Dockerfile
+      target: dev
     container_name: ats_backend
     restart: unless-stopped
     ports:
       - "8000:8000"
     volumes:
       - ./backend:/app
-      - backend_venv:/app/venv
+
     environment:
-      DATABASE_URL: postgresql://ats:devpass@postgres:5432/ats_dev
+      DATABASE_URL: postgresql+asyncpg://ats:devpass@postgres:5432/ats_dev
       REDIS_URL: redis://redis:6379
       SECRET_KEY: dev_secret_key_unsafe_do_not_use_in_production
       FRONTEND_URL: http://localhost:3000
       LANDING_URL: http://localhost:3001
+      ALLOWED_ORIGINS: http://localhost:3000,http://localhost:3001
       DEBUG: "true"
+      # MinIO (remplace S3 en local)
+      AWS_ACCESS_KEY_ID: minioadmin
+      AWS_SECRET_ACCESS_KEY: minioadmin
+      AWS_S3_ENDPOINT_URL: http://minio:9000
+      AWS_S3_BUCKET: ats-cv-local
+      AWS_REGION: eu-west-3
+      STORAGE_BACKEND: s3
     env_file:
       - ./backend/.env
     depends_on:
       postgres:
         condition: service_healthy
       redis:
+        condition: service_healthy
+      minio:
         condition: service_healthy
     command: uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload
 
@@ -68,18 +98,26 @@ services:
     restart: unless-stopped
     volumes:
       - ./workers:/app
-      - worker_venv:/app/venv
     environment:
-      DATABASE_URL: postgresql://ats:devpass@postgres:5432/ats_dev
+      DATABASE_URL: postgresql+asyncpg://ats:devpass@postgres:5432/ats_dev
       REDIS_URL: redis://redis:6379
-      AWS_S3_BUCKET: ats-cv-local
       PARSING_QUEUE: parsing_jobs
+      # MinIO
+      AWS_ACCESS_KEY_ID: minioadmin
+      AWS_SECRET_ACCESS_KEY: minioadmin
+      AWS_S3_ENDPOINT_URL: http://minio:9000
+      AWS_S3_BUCKET: ats-cv-local
+      AWS_REGION: eu-west-3
+      PARSING_TIMEOUT: 30
+      PARSING_MAX_RETRIES: 3
     env_file:
       - ./workers/.env
     depends_on:
       postgres:
         condition: service_healthy
       redis:
+        condition: service_healthy
+      minio:
         condition: service_healthy
     command: python parsing_worker.py
 
@@ -91,11 +129,15 @@ services:
     restart: unless-stopped
     volumes:
       - ./workers:/app
-      - worker_venv:/app/venv
     environment:
-      DATABASE_URL: postgresql://ats:devpass@postgres:5432/ats_dev
+      DATABASE_URL: postgresql+asyncpg://ats:devpass@postgres:5435/ats_dev
       REDIS_URL: redis://redis:6379
       EMAIL_QUEUE: email_jobs
+      # MailHog en local (pas de vrai envoi)
+      SMTP_HOST: mailhog
+      SMTP_PORT: 1025
+      SMTP_FROM: noreply@ats-local.dev
+      SMTP_TLS: "false"
     env_file:
       - ./workers/.env
     depends_on:
@@ -105,8 +147,16 @@ services:
         condition: service_healthy
     command: python email_worker.py
 
-  # ========== FRONTENDS ==========
-  # ATS
+  mailhog:
+    image: mailhog/mailhog
+    container_name: ats_mailhog
+    restart: unless-stopped
+    ports:
+      - "1025:1025"
+      - "8025:8025"
+    logging:
+      driver: none
+
   app:
     build:
       context: ./app
@@ -121,9 +171,9 @@ services:
       - app_node_modules:/app/node_modules
     command: sh -c "npm install && npm run dev"
     environment:
-      - NODE_ENV=development
-      - REACT_APP_API_URL=http://localhost:8000
-      - REACT_APP_WS_URL=ws://localhost:8000
+      NODE_ENV: development
+      REACT_APP_API_URL: http://localhost:8000
+      REACT_APP_WS_URL: ws://localhost:8000
     env_file:
       - ./app/.env
     depends_on:
@@ -143,17 +193,13 @@ services:
       - frontend_node_modules:/app/node_modules
     command: sh -c "npm install && npm run dev"
     environment:
-      - NODE_ENV=development
+      NODE_ENV: development
     env_file:
       - ./frontend/.env
-    depends_on:
-      redis:
-        condition: service_healthy
 
 volumes:
   postgres_data:
   redis_data:
-  backend_venv:
-  worker_venv:
+  minio_data:
   app_node_modules:
   frontend_node_modules:
