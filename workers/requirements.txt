@@ -1,0 +1,46 @@
+# ============================================================
+# WORKERS — requirements.txt
+# Python 3.11
+# Shared by worker_parsing and worker_email
+# ============================================================
+
+# ---------- Database ----------
+sqlalchemy[asyncio]==2.0.35
+asyncpg==0.29.0
+psycopg2-binary==2.9.9   # fallback sync if needed
+
+# ---------- Redis (queue consumption) ----------
+redis==5.1.0
+
+# ---------- File storage (S3 / MinIO) ----------
+boto3==1.35.32
+botocore==1.35.32
+
+# ---------- PDF parsing ----------
+pdfplumber==0.11.4    # PDF text extraction (more reliable than PyPDF2)
+PyPDF2==3.0.1         # fallback for simple PDFs
+
+# ---------- DOCX parsing ----------
+python-docx==1.1.2
+
+# ---------- Text parsing / lightweight NLP ----------
+# Skills, experience, education extraction
+spacy==3.7.6          # NER + pattern matching
+# Download models after install:
+# python -m spacy download fr_core_news_sm
+# python -m spacy download en_core_web_sm
+regex==2024.9.11      # advanced regular expressions (dates, emails)
+
+# ---------- Email ----------
+aiosmtplib==3.0.1
+jinja2==3.1.4          # email template rendering
+
+# ---------- Validation ----------
+pydantic==2.9.2
+pydantic-settings==2.5.2
+email-validator==2.2.0
+
+# ---------- Utilities ----------
+python-dotenv==1.0.1
+structlog==24.4.0
+tenacity==9.0.0        # automatic retries (3 attempts for parsing/email)
