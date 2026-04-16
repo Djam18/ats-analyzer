@@ -1,10 +1,10 @@
 # app/features/jobs/schemas.py
 import uuid
 from datetime import datetime
-from typing import Optional
+from typing import Generic, Optional, TypeVar
 from pydantic import BaseModel, Field, model_validator
 
-# ─── Critères de scoring ────────────────────────────────────────────
+# ─── Scoring criteria ─────────────────────────────────────────────
 
 VALID_CRITERIA = {"skills", "experience", "education", "languages"}
 
@@ -53,18 +53,15 @@ class JobCreate(BaseModel):
     scoring_criteria:   list[ScoringCriterionIn] = Field(default_factory=list)
     required_skills:    list[SkillIn]            = Field(default_factory=list)
     required_languages: list[LanguageIn]         = Field(default_factory=list)
-    created_by_id:    Optional[uuid.UUID]      = None  # Ignoré à la création, rempli par le service
 
     @model_validator(mode="after")
     def check_scoring_weights(self):
         criteria = self.scoring_criteria
         if not criteria:
             return self
-        # Noms uniques
         names = [c.criterion_name for c in criteria]
         if len(names) != len(set(names)):
             raise ValueError("Duplicate criterion_name in scoring_criteria")
-        # Somme = 100
         total = sum(c.weight for c in criteria)
         if total != 100:
             raise ValueError(f"Scoring criteria weights must sum to 100, got {total}")
@@ -72,7 +69,6 @@ class JobCreate(BaseModel):
 
 
 class JobUpdate(BaseModel):
-    """Tous les champs sont optionnels — PATCH sémantique."""
     title:           Optional[str] = Field(None, min_length=3, max_length=255)
     description:     Optional[str] = Field(None, min_length=10)
     location:        Optional[str] = Field(None, max_length=255)
@@ -114,7 +110,6 @@ class JobOut(BaseModel):
 
 
 class JobListOut(BaseModel):
-    """Vue allégée pour les listes — pas de description complète."""
     id:            uuid.UUID
     title:         str
     location:      Optional[str]
@@ -123,3 +118,16 @@ class JobListOut(BaseModel):
     slug:          str
     created_at:    datetime
     model_config = {"from_attributes": True}
+
+
+# ─── Pagination ─────────────────────────────────────────────────────
+
+T = TypeVar("T")
+
+class PaginatedResponse(BaseModel, Generic[T]):
+    """Generic pagination wrapper — reusable across all modules."""
+    items:    list[T]
+    total:    int = Field(..., description="Total number of records")
+    page:     int = Field(..., description="Current page (1-indexed)")
+    per_page: int = Field(..., description="Items per page")
+    pages:    int = Field(..., description="Total number of pages")

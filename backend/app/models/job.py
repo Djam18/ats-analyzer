@@ -18,7 +18,7 @@ class JobStatus(str, enum.Enum):
     draft  = "draft"
     active = "active"
     closed = "closed"
-    # archived → V2, retiré du MVP
+    # archived → V2, removed from MVP
 
 
 class JobPosting(Base):
@@ -30,10 +30,10 @@ class JobPosting(Base):
     location        = Column(String(255), nullable=True)
     contract_type   = Column(String(100), nullable=True)
     status          = Column(Enum(JobStatus), nullable=False, default=JobStatus.draft)
-    slug            = Column(String(255), nullable=False, unique=True)
+    slug = Column(String(255), nullable=True, unique=True)
     alert_threshold = Column(Integer, nullable=False, default=80)
 
-    # ✅ Propriétaire de l'offre
+    # ✅ Job owner
     created_by_id   = Column(
         UUID(as_uuid=True),
         ForeignKey("user.id", ondelete="SET NULL"),
@@ -43,8 +43,9 @@ class JobPosting(Base):
     created_at = Column(DateTime(timezone=True), server_default=func.now(), nullable=False)
     updated_at = Column(DateTime(timezone=True), server_default=func.now(),
                         onupdate=func.now(), nullable=False)
+    archived_at = Column(DateTime(timezone=True), nullable=True)
 
-    # Relations
+    # Relationships
     created_by         = relationship("User", back_populates="job_postings")
     scoring_criteria   = relationship("ScoringCriterion", back_populates="job_posting",
                                       cascade="all, delete-orphan")
@@ -66,7 +67,7 @@ class ScoringCriterion(Base):
     weight         = Column(Integer, nullable=False)  # 0-100
 
     __table_args__ = (
-        # ✅ Validation métier dans l'Enum Python, pas en SQL hardcodé
+        # ✅ Business validation in Python Enum, not hardcoded in SQL
         CheckConstraint("weight >= 0 AND weight <= 100", name="ck_weight_range"),
         UniqueConstraint("job_posting_id", "criterion_name", name="uq_criterion_per_job"),
     )
