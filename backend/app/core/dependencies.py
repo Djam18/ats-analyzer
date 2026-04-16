@@ -1,14 +1,16 @@
 import jwt
 from fastapi import Depends, HTTPException, status
 from fastapi.security import HTTPAuthorizationCredentials, HTTPBearer
+from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
-from app.core.security import is_token_blacklisted
+
 from app.core.config import settings
+from app.core.security import is_token_blacklisted
 from app.database import get_db
 from app.models import User
-from sqlalchemy import select
 
 bearer_scheme = HTTPBearer()
+
 
 async def get_current_user(
     credentials: HTTPAuthorizationCredentials = Depends(bearer_scheme),
@@ -21,11 +23,7 @@ async def get_current_user(
         headers={"WWW-Authenticate": "Bearer"},
     )
     try:
-        payload = jwt.decode(
-            token,
-            settings.secret_key,
-            algorithms=[settings.algorithm]
-        )
+        payload = jwt.decode(token, settings.secret_key, algorithms=[settings.algorithm])
         user_id: str = payload.get("sub")
         jti: str = payload.get("jti")
 

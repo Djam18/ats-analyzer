@@ -1,9 +1,12 @@
 from datetime import timedelta
+
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
-from app.core.security import create_access_token, verify_password, blacklist_token
+
 from app.core.config import settings
+from app.core.security import blacklist_token, create_access_token, verify_password
 from app.models import User
+
 
 class AuthService:
     def __init__(self, db: AsyncSession):

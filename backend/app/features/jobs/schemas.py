@@ -2,15 +2,17 @@
 import uuid
 from datetime import datetime
 from typing import Generic, Optional, TypeVar
+
 from pydantic import BaseModel, Field, model_validator
 
 # ─── Scoring criteria ─────────────────────────────────────────────
 
 VALID_CRITERIA = {"skills", "experience", "education", "languages"}
 
+
 class ScoringCriterionIn(BaseModel):
     criterion_name: str = Field(..., examples=["skills"])
-    weight: int         = Field(..., ge=0, le=100)
+    weight: int = Field(..., ge=0, le=100)
 
     @model_validator(mode="after")
     def check_criterion_name(self):
@@ -18,41 +20,49 @@ class ScoringCriterionIn(BaseModel):
             raise ValueError(f"criterion_name must be one of {VALID_CRITERIA}")
         return self
 
+
 class ScoringCriterionOut(BaseModel):
-    id:             uuid.UUID
+    id: uuid.UUID
     criterion_name: str
-    weight:         int
+    weight: int
     model_config = {"from_attributes": True}
 
+
 # ─── Skills & Languages ─────────────────────────────────────────────
+
 
 class SkillIn(BaseModel):
     skill_name: str = Field(..., min_length=1, max_length=100)
 
+
 class SkillOut(BaseModel):
-    id:         uuid.UUID
+    id: uuid.UUID
     skill_name: str
     model_config = {"from_attributes": True}
+
 
 class LanguageIn(BaseModel):
     language_name: str = Field(..., min_length=1, max_length=50)
 
+
 class LanguageOut(BaseModel):
-    id:            uuid.UUID
+    id: uuid.UUID
     language_name: str
     model_config = {"from_attributes": True}
 
+
 # ─── Job Posting ────────────────────────────────────────────────────
 
+
 class JobCreate(BaseModel):
-    title:           str = Field(..., min_length=3, max_length=255)
-    description:     str = Field(..., min_length=10)
-    location:        Optional[str] = Field(None, max_length=255)
-    contract_type:   Optional[str] = Field(None, max_length=100)
-    alert_threshold: int           = Field(80, ge=0, le=100)
-    scoring_criteria:   list[ScoringCriterionIn] = Field(default_factory=list)
-    required_skills:    list[SkillIn]            = Field(default_factory=list)
-    required_languages: list[LanguageIn]         = Field(default_factory=list)
+    title: str = Field(..., min_length=3, max_length=255)
+    description: str = Field(..., min_length=10)
+    location: Optional[str] = Field(None, max_length=255)
+    contract_type: Optional[str] = Field(None, max_length=100)
+    alert_threshold: int = Field(80, ge=0, le=100)
+    scoring_criteria: list[ScoringCriterionIn] = Field(default_factory=list)
+    required_skills: list[SkillIn] = Field(default_factory=list)
+    required_languages: list[LanguageIn] = Field(default_factory=list)
 
     @model_validator(mode="after")
     def check_scoring_weights(self):
@@ -69,14 +79,14 @@ class JobCreate(BaseModel):
 
 
 class JobUpdate(BaseModel):
-    title:           Optional[str] = Field(None, min_length=3, max_length=255)
-    description:     Optional[str] = Field(None, min_length=10)
-    location:        Optional[str] = Field(None, max_length=255)
-    contract_type:   Optional[str] = Field(None, max_length=100)
+    title: Optional[str] = Field(None, min_length=3, max_length=255)
+    description: Optional[str] = Field(None, min_length=10)
+    location: Optional[str] = Field(None, max_length=255)
+    contract_type: Optional[str] = Field(None, max_length=100)
     alert_threshold: Optional[int] = Field(None, ge=0, le=100)
-    scoring_criteria:   Optional[list[ScoringCriterionIn]] = None
-    required_skills:    Optional[list[SkillIn]]            = None
-    required_languages: Optional[list[LanguageIn]]         = None
+    scoring_criteria: Optional[list[ScoringCriterionIn]] = None
+    required_skills: Optional[list[SkillIn]] = None
+    required_languages: Optional[list[LanguageIn]] = None
 
     @model_validator(mode="after")
     def check_scoring_weights(self):
@@ -93,30 +103,30 @@ class JobUpdate(BaseModel):
 
 
 class JobOut(BaseModel):
-    id:              uuid.UUID
-    title:           str
-    description:     str
-    location:        Optional[str]
-    contract_type:   Optional[str]
-    status:          str
-    slug:            str
+    id: uuid.UUID
+    title: str
+    description: str
+    location: Optional[str]
+    contract_type: Optional[str]
+    status: str
+    slug: str
     alert_threshold: int
-    created_at:      datetime
-    updated_at:      datetime
-    scoring_criteria:   list[ScoringCriterionOut]
-    required_skills:    list[SkillOut]
+    created_at: datetime
+    updated_at: datetime
+    scoring_criteria: list[ScoringCriterionOut]
+    required_skills: list[SkillOut]
     required_languages: list[LanguageOut]
     model_config = {"from_attributes": True}
 
 
 class JobListOut(BaseModel):
-    id:            uuid.UUID
-    title:         str
-    location:      Optional[str]
+    id: uuid.UUID
+    title: str
+    location: Optional[str]
     contract_type: Optional[str]
-    status:        str
-    slug:          str
-    created_at:    datetime
+    status: str
+    slug: str
+    created_at: datetime
     model_config = {"from_attributes": True}
 
 
@@ -124,10 +134,12 @@ class JobListOut(BaseModel):
 
 T = TypeVar("T")
 
+
 class PaginatedResponse(BaseModel, Generic[T]):
     """Generic pagination wrapper — reusable across all modules."""
-    items:    list[T]
-    total:    int = Field(..., description="Total number of records")
-    page:     int = Field(..., description="Current page (1-indexed)")
+
+    items: list[T]
+    total: int = Field(..., description="Total number of records")
+    page: int = Field(..., description="Current page (1-indexed)")
     per_page: int = Field(..., description="Items per page")
-    pages:    int = Field(..., description="Total number of pages")
+    pages: int = Field(..., description="Total number of pages")

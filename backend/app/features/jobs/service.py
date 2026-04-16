@@ -1,19 +1,18 @@
 # app/features/jobs/service.py
 import uuid
+from datetime import datetime, timezone
 from typing import Optional
+
 from slugify import slugify
 from sqlalchemy import func, select
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.orm import selectinload
 
-from app.features.jobs.schemas import JobCreate, JobUpdate, PaginatedResponse, JobListOut
-from app.models.job import (
-    JobPosting, JobStatus,
-    RequiredLanguage, RequiredSkill, ScoringCriterion,
-)
-from datetime import datetime, timezone
+from app.features.jobs.schemas import JobCreate, JobListOut, JobUpdate, PaginatedResponse
+from app.models.job import JobPosting, JobStatus, RequiredLanguage, RequiredSkill, ScoringCriterion
+
 ALLOWED_TRANSITIONS: dict[JobStatus, set[JobStatus]] = {
-    JobStatus.draft:  {JobStatus.active},
+    JobStatus.draft: {JobStatus.active},
     JobStatus.active: {JobStatus.closed},
     JobStatus.closed: set(),
 }
@@ -35,9 +34,7 @@ class JobService:
         slug = base_slug
         counter = 1
         while True:
-            result = await self.db.execute(
-                select(JobPosting).where(JobPosting.slug == slug)
-            )
+            result = await self.db.execute(select(JobPosting).where(JobPosting.slug == slug))
             if result.scalar_one_or_none() is None:
                 return slug
             slug = f"{base_slug}-{counter}"
@@ -51,8 +48,7 @@ class JobService:
             ]
         if data.required_skills is not None:
             job.required_skills = [
-                RequiredSkill(skill_name=s.skill_name)
-                for s in data.required_skills
+                RequiredSkill(skill_name=s.skill_name) for s in data.required_skills
             ]
         if data.required_languages is not None:
             job.required_languages = [
@@ -63,14 +59,14 @@ class JobService:
     async def create(self, data: JobCreate, user_id: uuid.UUID) -> JobPosting:
         # Slug will be generated upon first publication (draft → active)
         job = JobPosting(
-            title           = data.title,
-            description     = data.description,
-            location        = data.location,
-            contract_type   = data.contract_type,
-            alert_threshold = data.alert_threshold,
-            slug            = None,  # Empty for drafts
-            created_by_id   = user_id,
-            status          = JobStatus.draft,
+            title=data.title,
+            description=data.description,
+            location=data.location,
+            contract_type=data.contract_type,
+            alert_threshold=data.alert_threshold,
+            slug=None,  # Empty for drafts
+            created_by_id=user_id,
+            status=JobStatus.draft,
         )
         self._build_children(job, data)
         self.db.add(job)
@@ -98,7 +94,7 @@ class JobService:
         page: int = 1,
         per_page: int = 20,
         status: JobStatus | None = None,
-        include_archived: bool = False
+        include_archived: bool = False,
     ) -> PaginatedResponse[JobListOut]:
 
         base_query = select(JobPosting).where(JobPosting.created_by_id == user_id)
@@ -118,10 +114,7 @@ class JobService:
         # Paginated data
         offset = (page - 1) * per_page
         result = await self.db.execute(
-            base_query
-            .order_by(JobPosting.created_at.desc())
-            .offset(offset)
-            .limit(per_page)
+            base_query.order_by(JobPosting.created_at.desc()).offset(offset).limit(per_page)
         )
         items = result.scalars().all()
 
@@ -137,9 +130,7 @@ class JobService:
 
     async def get_by_id(self, job_id: uuid.UUID) -> Optional[JobPosting]:
         result = await self.db.execute(
-            select(JobPosting)
-            .where(JobPosting.id == job_id)
-            .options(*self._with_relations())
+            select(JobPosting).where(JobPosting.id == job_id).options(*self._with_relations())
         )
         return result.scalar_one_or_none()
 
@@ -185,7 +176,7 @@ class JobService:
             )
 
         if job.status == JobStatus.draft and new_status == JobStatus.active:
-            if job.slug is None:   # instead of if not job.slug
+            if job.slug is None:  # instead of if not job.slug
                 job.slug = await self._generate_unique_slug(job.title)
 
         if not job.scoring_criteria:

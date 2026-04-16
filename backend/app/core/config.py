@@ -1,5 +1,6 @@
 from pydantic_settings import BaseSettings
- 
+
+
 class Settings(BaseSettings):
     debug: bool = True
     app_version: str = "0.1.0"
@@ -23,11 +24,12 @@ class Settings(BaseSettings):
     smtp_tls: bool = False
     parsing_timeout: int = 30
     parsing_max_retries: int = 3
- 
+
     @property
     def allowed_origins_list(self) -> list[str]:
         return self.allowed_origins.split(",")
- 
+
     model_config = {"env_file": ".env", "extra": "ignore"}
- 
+
+
 settings = Settings()
