@@ -85,7 +85,10 @@ class JobService:
             raise ValueError("Job already archived.")
         job.archived_at = datetime.now(timezone.utc)
         await self.db.commit()
-        return job
+        result = await self.get_by_id(job.id)  # ✅ refetch with relations
+        if not result:
+            raise RuntimeError(f"Job {job.id} not found after archiving")
+        return result
 
     # ── Paginated LIST ──────────────────────────────────────────────────
     async def list_for_user(

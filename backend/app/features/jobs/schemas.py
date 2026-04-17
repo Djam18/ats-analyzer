@@ -109,10 +109,11 @@ class JobOut(BaseModel):
     location: Optional[str]
     contract_type: Optional[str]
     status: str
-    slug: str
+    slug: Optional[str] = None
     alert_threshold: int
     created_at: datetime
     updated_at: datetime
+    archived_at: Optional[datetime] = None
     scoring_criteria: list[ScoringCriterionOut]
     required_skills: list[SkillOut]
     required_languages: list[LanguageOut]
@@ -125,7 +126,7 @@ class JobListOut(BaseModel):
     location: Optional[str]
     contract_type: Optional[str]
     status: str
-    slug: str
+    slug: Optional[str] = None
     created_at: datetime
     model_config = {"from_attributes": True}
 

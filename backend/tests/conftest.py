@@ -24,10 +24,12 @@ async def override_get_db():
 
 app.dependency_overrides[get_db] = override_get_db
 
+FIXED_USER_ID = uuid.uuid4()
+
 
 async def override_get_current_user():
     return User(
-        id=uuid.uuid4(),
+        id=FIXED_USER_ID,
         email="test@example.com",
         full_name="Test User",
         password_hash="fake",

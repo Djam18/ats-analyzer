@@ -21,7 +21,7 @@ def verify_password(plain: str, hashed: str) -> bool:
 
 def create_access_token(data: dict, expires_delta: Optional[timedelta] = None) -> str:
     jti = str(uuid.uuid4())
-    #to_encode = data.copy()
+    # to_encode = data.copy()
     expire = datetime.now(timezone.utc) + (
         expires_delta or timedelta(minutes=settings.access_token_expire_minutes)
     )
@@ -45,7 +45,7 @@ async def get_redis() -> aioredis.Redis:
 
 
 async def blacklist_token(jti: str, expires_in: int) -> None:
-    """Inscrit un token dans la blacklist Redis jusqu'à son expiration naturelle."""
+    """Add a token to the Redis blacklist until its natural expiration."""
     r = await get_redis()
     await r.setex(f"blacklist:{jti}", expires_in, "1")
 

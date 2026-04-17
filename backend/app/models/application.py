@@ -12,12 +12,14 @@ from sqlalchemy import (
     String,
     Text,
 )
-from sqlalchemy.dialects.postgresql import INET, JSONB, UUID
+from sqlalchemy.dialects.postgresql import UUID
 from sqlalchemy.orm import relationship
 from sqlalchemy.sql import func
 from sqlalchemy.types import DateTime
 
 from app.models.base import Base
+from app.models.types import INETType as INET
+from app.models.types import JSONBType as JSONB
 
 
 class ApplicationStage(str, enum.Enum):
